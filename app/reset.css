@@ -1,0 +1,9 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+:root {
+  background: #f9f9f9;
+  color-scheme: light;
+}
