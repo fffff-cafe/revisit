@@ -4,7 +4,9 @@ import { FC, useEffect, useState } from "react"
 import { Scanner } from "@yudiel/react-qr-scanner"
 import { Button } from "../elements"
 
-export const ScannerModal: FC<{ onClose: () => void }> = ({ onClose }) => {
+export const ScannerModal: FC<{
+  onClose: (url?: string) => void
+}> = ({ onClose }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -26,7 +28,6 @@ export const ScannerModal: FC<{ onClose: () => void }> = ({ onClose }) => {
         transform: isOpen ? "translateY(0)" : "translateY(100%)",
         transition: "transform .5s",
         width: "100dvw",
-        zIndex: 1000,
       }}
     >
       <p>店のQRコードをスキャンしてください</p>
@@ -38,12 +39,28 @@ export const ScannerModal: FC<{ onClose: () => void }> = ({ onClose }) => {
       >
         <Scanner
           onScan={(result) => {
-            console.log("Decoded QR code:", result)
-            onClose()
+            if (result.length === 0) {
+              alert(
+                "QRコードが正常に読み取れませんでした。もう一度お試しください。"
+              )
+              return
+            }
+            const urlString = result.find((r) =>
+              r.rawValue.startsWith(
+                (process.env.NEXT_PUBLIC_HOST || "http://localhost:3000") +
+                  "/visit"
+              )
+            )?.rawValue
+            if (!urlString) {
+              alert("無効なQRコードです。もう一度お試しください。")
+              return
+            }
+            console.info("Decoded URL:", urlString)
+            setTimeout(() => onClose(urlString), 500)
           }}
           onError={(error) => {
             console.error("QR code scanning error:", error)
-            alert("エラーが発生しました。もう一度お試しください。")
+            alert("読み取りエラーが発生しました。もう一度お試しください。")
           }}
           constraints={{
             facingMode: "environment",
