@@ -24,7 +24,7 @@ export const ScannerModal: FC<{
         left: 0,
         padding: "1rem",
         position: "fixed",
-        top: 0,
+        top: "3rem",
         transform: isOpen ? "translateY(0)" : "translateY(100%)",
         transition: "transform .5s",
         width: "100dvw",
@@ -61,9 +61,6 @@ export const ScannerModal: FC<{
           onError={(error) => {
             console.error("QR code scanning error:", error)
             alert("読み取りエラーが発生しました。もう一度お試しください。")
-          }}
-          constraints={{
-            facingMode: "environment",
           }}
         />
       </div>
