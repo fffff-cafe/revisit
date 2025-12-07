@@ -1,10 +1,15 @@
 "use client"
 
-import { FC } from "react"
+import { FC, useEffect, useState } from "react"
 import { Scanner } from "@yudiel/react-qr-scanner"
 import { Button } from "../elements"
 
 export const ScannerModal: FC<{ onClose: () => void }> = ({ onClose }) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsOpen(true)
+  }, [])
   return (
     <section
       style={{
@@ -18,7 +23,8 @@ export const ScannerModal: FC<{ onClose: () => void }> = ({ onClose }) => {
         padding: "1rem",
         position: "fixed",
         top: 0,
-        transform: "top 1s",
+        transform: isOpen ? "translateY(0)" : "translateY(100%)",
+        transition: "transform .5s",
         width: "100dvw",
         zIndex: 1000,
       }}
@@ -26,8 +32,8 @@ export const ScannerModal: FC<{ onClose: () => void }> = ({ onClose }) => {
       <p>店のQRコードをスキャンしてください</p>
       <div
         style={{
-          maxHeight: "36rem",
-          maxWidth: "36rem",
+          height: "36rem",
+          width: "36rem",
         }}
       >
         <Scanner
@@ -44,7 +50,14 @@ export const ScannerModal: FC<{ onClose: () => void }> = ({ onClose }) => {
           }}
         />
       </div>
-      <Button onClick={() => onClose()}>キャンセル</Button>
+      <Button
+        onClick={() => {
+          setIsOpen(false)
+          setTimeout(() => onClose(), 500)
+        }}
+      >
+        キャンセル
+      </Button>
     </section>
   )
 }
