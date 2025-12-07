@@ -1,9 +1,12 @@
 "use client"
 
-import { FC } from "react"
+import { type FC, useState } from "react"
 import Fireworks from "react-canvas-confetti/dist/presets/fireworks"
+import { Button } from "../components/elements"
+import { ScannerModal } from "../components/features/scanner-modal"
 
 const Page: FC = () => {
+  const [isActiveScanner, setIsActiveScanner] = useState<boolean>(false)
   return (
     <>
       <Fireworks autorun={{ speed: 1 }} />
@@ -22,25 +25,12 @@ const Page: FC = () => {
       >
         <h2>ようこそ FFFFF Cafe へ</h2>
         <p>初めての訪問です</p>
-        <form
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: ".5rem",
-          }}
-        >
-          <button
-            style={{
-              backgroundColor: "#161616",
-              border: 0,
-              borderRadius: ".5rem",
-              padding: ".5rem 1.5rem",
-            }}
-          >
-            訪問記録をする
-          </button>
-        </form>
+
+        <Button onClick={() => setIsActiveScanner(true)}>訪問記録をする</Button>
       </section>
+      {isActiveScanner && (
+        <ScannerModal onClose={() => setIsActiveScanner(false)} />
+      )}
     </>
   )
 }
