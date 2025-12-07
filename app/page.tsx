@@ -1,7 +1,7 @@
 "use client"
 
 import { type FC, useState } from "react"
-import Fireworks from "react-canvas-confetti/dist/presets/fireworks"
+import Confetti from "react-confetti-boom"
 import { Button, Section } from "../components/elements"
 import { ScannerModal } from "../components/features/scanner-modal"
 import { useRouter } from "next/navigation"
@@ -11,7 +11,7 @@ const Page: FC = () => {
   const [isActiveScanner, setIsActiveScanner] = useState<boolean>(false)
   return (
     <>
-      <Fireworks autorun={{ speed: 1 }} />
+      <Confetti effectCount={10} />
       <Section>
         <h2>ようこそ FFFFF Cafe へ</h2>
         <p>初めての訪問です</p>
