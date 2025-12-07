@@ -1,8 +1,9 @@
 import "./reset.css"
 
 export const metadata = {
-  title: "Page title",
-  description: "Page description",
+  title: "Revisit",
+  description:
+    "RevisitはFFFFF Cafeに訪れた人のための、訪問履歴を記録するアプリです。",
 }
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
@@ -11,8 +12,11 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <body>
         <header
           style={{
-            backgroundColor: "#f9f9f9",
+            alignItems: "center",
+            backgroundColor: "#222",
             boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+            display: "flex",
+            justifyContent: "space-between",
             padding: ".5rem",
             position: "relative",
           }}
@@ -23,12 +27,15 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
               margin: 0,
             }}
           >
-            Page title
+            Revisit
           </h1>
+          <nav>
+            <a href="//fffff-cafe.com">FFFFF Cafe</a>
+          </nav>
         </header>
         <main
           style={{
-            background: "#f0f0f0",
+            background: "#292929",
             minHeight: "calc(100dvh - 3rem)",
             padding: "1rem",
           }}
@@ -37,12 +44,13 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         </main>
         <footer
           style={{
-            backgroundColor: "#f9f9f9",
+            backgroundColor: "#222",
+            boxShadow: "0 -4px 6px rgba(0, 0, 0, 0.1)",
             fontSize: ".75rem",
             padding: "1rem",
           }}
         >
-          <p>&copy; My organization</p>
+          <p>FFFFF Cafe &copy; Reload, Inc.</p>
         </footer>
       </body>
     </html>
